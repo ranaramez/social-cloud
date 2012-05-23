@@ -1,4 +1,4 @@
-package Grpah;
+package Graph;
 public class EdgeWeightedGraph {
     private final int V;
     private int E;
