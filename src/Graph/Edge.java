@@ -1,4 +1,4 @@
-package Grpah;
+package Graph;
 public class Edge implements Comparable<Edge> { 
 
     private final int v;

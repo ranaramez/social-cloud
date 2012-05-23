@@ -1,4 +1,4 @@
-package Grpah;
+package Graph;
 import java.io.BufferedInputStream;
 import java.util.Locale;
 import java.util.Scanner;

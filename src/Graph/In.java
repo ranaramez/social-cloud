@@ -1,4 +1,4 @@
-package Grpah;
+package Graph;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;

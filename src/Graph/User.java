@@ -1,4 +1,4 @@
-package Grpah;
+package Graph;
 import java.util.ArrayList;
 
 
