@@ -19,24 +19,20 @@ public class Main {
 	    try {
 			while ((line = in.readLine()) != null) {
 			    String[] parts = line.split(",");
-			    if(line == "")
-			    	System.out.println("end");
-			    System.out.println(parts.length + parts[0]);
+			    if(parts.length < 2){
+			    	try {
+		                in.close();
+		            } catch (IOException e) {
+		                e.printStackTrace();
+		            }
+			    	break;
+			    }
 			    String title = parts[0];
-//			    int id = Integer.parseInt(parts[1]);
-//			    System.out.println(title);
-//			    System.out.println(id);
+			    int id = Integer.parseInt(parts[1]);
+			    System.out.println(id + " " + title);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-	        if (in != null) {
-	            try {
-	                in.close();
-	            } catch (IOException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	    }
+		}
 	}
 }
