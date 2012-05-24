@@ -104,7 +104,7 @@ public class EdgeWeightedGraph {
         StringBuilder s = new StringBuilder();
        // s.append(V + " " + E + NEWLINE);
         for (int v = 0; v < V; v++) {
-            s.append(v+"-" + users.get(v).name+ ": ");
+            s.append(users.get(v).profileId+"-" + users.get(v).name+ ": ");
             for (Edge e : adj.get(v)) {
                 s.append( users.get(e.either()).name+"-" + users.get(e.other(e.either())).name + " Weight ="+  e.weight() + "  ");
             }

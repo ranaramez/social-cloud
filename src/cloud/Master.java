@@ -16,25 +16,25 @@ public class Master {
 	UserMap userMap;
 	
 	public Master(){
-		this.dataCenters = new ArrayList<DataCenter>();
+		dataCenters = new ArrayList<DataCenter>();
 		userMap = new UserMap();
 	}
 	
 	public void addDataCenter(DataCenter dataCenter){
-		this.dataCenters.add(dataCenter);
+		dataCenters.add(dataCenter);
 	}
 	
-	public static void checkAllocate(){
+	private static void checkAllocate(){
 		for(DataCenter center:dataCenters){
 			center.checkAllocate();
 		}
 	}
 	
-	public static void assignFriends(){
+	private static void assignFriends(){
 		// assign random friends for each user.
 	}
 	
-	public static void assignUsers(){
+	private static void assignUsers(){
 		BufferedReader in = null;
 		try {
 			in = new BufferedReader(new FileReader("users.txt"));
@@ -55,12 +55,25 @@ public class Master {
 			    	break;
 			    }
 			    String name = parts[0];
-			    int geolocation = Integer.parseInt(parts[1]);
-			    System.out.println(geolocation + " " + name);
+			    double geolocation = Double.parseDouble(parts[1]);
+			    createUser(name, geolocation);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private static void createUser(String name, double geolocation){
+		for(DataCenter center: dataCenters){
+			if(center.geolocation == geolocation){
+				center.addUser(new User(name, geolocation, center.country));
+				break;
+			}
+		}
+	}
+	
+	private static void printDataCenterUsers(DataCenter dataCenter) {
+		StdOut.println(dataCenter.users);
 	}
 	
 	/**
@@ -75,7 +88,7 @@ public class Master {
 		DataCenter us=new DataCenter(1000, "U.S", 9000, 9200);
 		DataCenter china=new DataCenter(10000, "China",8000, 8326);
 		
-		
+
 		cloud.addDataCenter(egypt);
 		cloud.addDataCenter(france);
 		cloud.addDataCenter(us);
@@ -83,11 +96,15 @@ public class Master {
 
 		
 		// Create Users and assign them to random data centers
-		//assignUsers();
+		assignUsers();
 		
-		assignFriends();
+		printDataCenterUsers(us);
+		
+//		assignFriends();
 		
 		// call allocate users for each datacenter
-		checkAllocate();
+//		checkAllocate();
 	}
+
+	
 }
