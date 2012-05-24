@@ -54,9 +54,9 @@ public class Master {
 		            }
 			    	break;
 			    }
-			    String title = parts[0];
-			    int id = Integer.parseInt(parts[1]);
-			    System.out.println(id + " " + title);
+			    String name = parts[0];
+			    int geolocation = Integer.parseInt(parts[1]);
+			    System.out.println(geolocation + " " + name);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
