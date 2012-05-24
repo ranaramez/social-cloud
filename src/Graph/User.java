@@ -6,15 +6,16 @@ import cloud.Friends;
 
 public class User {
 	String name;
-	int id;
+	String profileId;
 	double usedMemory;
 	int geolocation;
 	String origin;
 	ArrayList<Friends> externalFriends;
 	
-	public User(String name){
+	public User(String name,int userId,int dataCenterId){
 		this.name = name;
 		this.usedMemory = 0.1;
+		this.profileId=userId+"-"+dataCenterId;
 		this.externalFriends= new ArrayList<Friends>();	
 	}
 	
