@@ -2,12 +2,12 @@ package cloud;
 
 public class Friends {
 	
-	int userId;
+	String profileId;
 	boolean externalFriend;
 	double weight;
 	
-	public Friends(int userId, boolean externalFriend){
-		this.userId = userId;
+	public Friends(String profileId, boolean externalFriend){
+		this.profileId = profileId;
 		weight = 10;
 		this.externalFriend = externalFriend;
 	}

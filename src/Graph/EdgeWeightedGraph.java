@@ -53,8 +53,8 @@ public class EdgeWeightedGraph {
    /**
     * Add the vertex to this graph.
     */
-    public void addVertex(User user){
-    	user.id=V;
+    public void addVertex(User user,int dataCenterId){
+    	user.profileId=V+"-"+dataCenterId;
     	V++;
     	users.add(user);
     	adj.add(new Bag<Edge>());
@@ -118,15 +118,6 @@ public class EdgeWeightedGraph {
      */
     public static void main(String[] args) {
     	
-        EdgeWeightedGraph G = new EdgeWeightedGraph();
-        G.addVertex(new User("Behairy"));
-        G.addVertex(new User("Ahmed"));
-        G.addVertex(new User("Rana"));
-        G.addEdge(new Edge(1,2,20));
-        G.addEdge(new Edge(0, 1, 0));
-
-        
-        StdOut.println(G);
         
     }
 

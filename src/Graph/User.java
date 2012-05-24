@@ -6,7 +6,7 @@ import cloud.Friends;
 
 public class User {
 	String name;
-	String profileId;
+	public String profileId;
 	double usedMemory;
 	double geolocation;
 	String origin;
