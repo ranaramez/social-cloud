@@ -8,19 +8,19 @@ import Graph.User;
 public class DataCenter {
 
 	EdgeWeightedGraph users;
-	int dataCenterNumber;
+	int dataCenterId;
 	int storage;
 	ArrayList<Server> servers;
 	String country;
 	long geolocation;
 	
 	
-	public DataCenter(int storage, String country, long geolocation, int dataCenterNumber){
+	public DataCenter(int storage, String country, long geolocation, int dataCenterId){
 		this.users=new EdgeWeightedGraph();
 		this.storage=storage;
 		this.country = country;
 		this.geolocation = geolocation;
-		this.dataCenterNumber = dataCenterNumber;
+		this.dataCenterId = dataCenterId;
 		
 		// Create two initial servers.
 		this.servers=new ArrayList<Server>();
@@ -34,8 +34,7 @@ public class DataCenter {
 	}
 	
 	public void addUser(User user){
-		users.addVertex(user);
-		
+		users.addVertex(user);	
 	}
 
 	public void checkAllocate() {
