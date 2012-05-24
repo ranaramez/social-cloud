@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import Graph.Edge;
 import Graph.StdOut;
 import Graph.User;
 
@@ -98,7 +97,7 @@ public class Master {
 		// Create Users and assign them to random data centers
 		assignUsers();
 		
-		printDataCenterUsers(us);
+		printDataCenterUsers(egypt);
 		
 //		assignFriends();
 		
