@@ -13,6 +13,12 @@ public class Edge implements Comparable<Edge> {
         this.w = w;
         this.weight = weight;
     }
+    
+    public Edge(int v, int w) {
+        this.v = v;
+        this.w = w;
+        this.weight = 10;
+    }
 
    /**
      * Return the weight of this edge.

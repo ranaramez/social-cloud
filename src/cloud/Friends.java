@@ -1,13 +1,15 @@
 package cloud;
 
-public class ExternalFriends {
+public class Friends {
 	
 	int userId;
+	boolean externalFriend;
 	double weight;
 	
-	public ExternalFriends(int userId){
+	public Friends(int userId, boolean externalFriend){
 		this.userId = userId;
 		weight = 10;
+		this.externalFriend = externalFriend;
 	}
 	
 	public void updateWeight(double weight){
