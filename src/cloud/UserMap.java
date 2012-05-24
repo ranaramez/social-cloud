@@ -4,8 +4,7 @@ public class UserMap {
 	int userId;
 	DataCenter dataCenter;
 	
-	public UserMap(){
-		
+	public UserMap(){	
 	}
 	
 	
