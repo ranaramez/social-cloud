@@ -12,10 +12,10 @@ public class User {
 	String origin;
 	ArrayList<Friends> externalFriends;
 	
-	public User(String name,int userId,int dataCenterId){
+	public User(String name){
 		this.name = name;
 		this.usedMemory = 0.1;
-		this.profileId=userId+"-"+dataCenterId;
+		//this.profileId=userId+"-"+dataCenterId;
 		this.externalFriends= new ArrayList<Friends>();	
 	}
 	
