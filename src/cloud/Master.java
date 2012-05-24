@@ -97,7 +97,7 @@ public class Master {
 		// Create Users and assign them to random data centers
 		assignUsers();
 		
-		printDataCenterUsers(egypt);
+		printDataCenterUsers(china);
 		
 //		assignFriends();
 		
