@@ -75,8 +75,6 @@ public class Master {
 		DataCenter us=new DataCenter(1000, "U.S", 9000, 9200);
 		DataCenter china=new DataCenter(10000, "China",8000, 8326);
 		
-		egypt.addUser(new User("Ahmed"));
-		StdOut.println(egypt.users);
 		
 		cloud.addDataCenter(egypt);
 		cloud.addDataCenter(france);
@@ -85,7 +83,7 @@ public class Master {
 
 		
 		// Create Users and assign them to random data centers
-		assignUsers();
+		//assignUsers();
 		
 		assignFriends();
 		

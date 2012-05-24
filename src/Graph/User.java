@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import cloud.Friends;
 
 public class User {
-	String name;
+	public String name;
 	public String profileId;
 	double usedMemory;
 	int geolocation;
@@ -15,7 +15,6 @@ public class User {
 	public User(String name){
 		this.name = name;
 		this.usedMemory = 0.1;
-		//this.profileId=userId+"-"+dataCenterId;
 		this.externalFriends= new ArrayList<Friends>();	
 	}
 	

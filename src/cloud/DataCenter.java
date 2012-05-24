@@ -31,14 +31,19 @@ public class DataCenter {
 
 	}
 	
-	public ArrayList<Friends> getFriends(int user){
+	
+	public ArrayList<Friends> getFriends(String profileId){
+		int userId=Integer.parseInt(profileId.split("-")[0]);
 		ArrayList<Friends> friends=new ArrayList<Friends>();
-		
+		User user=this.users.users.get(userId);
 		int nodeId=0;
 		
+		// Internal Friends
 	      for (Edge e : users.adj(nodeId)) {
-	    	  	friends.add(new Friends(this.users.users.get(e.either()).profileId ,false));
+	    	  	friends.add(new Friends(this.users.users.get(e.other(userId)).profileId ,false));
 	      }
+	    // External Friends
+	      friends.addAll(user.externalFriends);
 	      
 	      return friends;
 		
