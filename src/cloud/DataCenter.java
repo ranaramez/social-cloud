@@ -36,7 +36,11 @@ public class DataCenter {
 		
 		int nodeId=0;
 		
-	  return friends;
+	      for (Edge e : users.adj(nodeId)) {
+	    	  	friends.add(new Friends(this.users.users.get(e.either()).profileId ,false));
+	      }
+	      
+	      return friends;
 		
 		
 	}
