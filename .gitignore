@@ -1,4 +1,5 @@
 /bin
+.metadata
 # Package Files #
 *.jar
 *.war

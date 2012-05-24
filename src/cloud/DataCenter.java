@@ -58,7 +58,6 @@ public class DataCenter {
 		users.addVertex(user,this.dataCenterId);	
 	}
 
-	
 	public void checkAllocate() {
 	//For each User get it's friends 
 	

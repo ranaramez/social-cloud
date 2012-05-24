@@ -104,6 +104,5 @@ public class Master {
 		// call allocate users for each datacenter
 //		checkAllocate();
 	}
-
 	
 }
