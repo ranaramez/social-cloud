@@ -72,8 +72,8 @@ public class Master {
 		}
 	}
 	
-	private static void printDataCenterUsers(DataCenter egypt) {
-		StdOut.println(egypt.users);
+	private static void printDataCenterUsers(DataCenter dataCenter) {
+		StdOut.println(dataCenter.users);
 	}
 	
 	/**
@@ -88,9 +88,6 @@ public class Master {
 		DataCenter us=new DataCenter(1000, "U.S", 9000, 9200);
 		DataCenter china=new DataCenter(10000, "China",8000, 8326);
 		
-		egypt.addUser(new User("Ahmed"));
-		StdOut.println(egypt.users);
-		
 		cloud.addDataCenter(egypt);
 		cloud.addDataCenter(france);
 		cloud.addDataCenter(us);
@@ -100,7 +97,7 @@ public class Master {
 		// Create Users and assign them to random data centers
 		assignUsers();
 		
-		printDataCenterUsers(france);
+		printDataCenterUsers(egypt);
 		
 //		assignFriends();
 		
