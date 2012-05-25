@@ -31,7 +31,10 @@ public class DataCenter {
 
 	}
 	
-	
+	public int getId()
+	{
+		return dataCenterId;
+	}
 	public ArrayList<Friends> getFriends(String profileId){
 		int userId=Integer.parseInt(profileId.split("-")[0]);
 		ArrayList<Friends> friends=new ArrayList<Friends>();
@@ -57,7 +60,6 @@ public class DataCenter {
 	public void addUser(User user){
 		users.addVertex(user,this.dataCenterId);	
 	}
-
 	public void checkAllocate() {
 	//For each User get it's friends 
 	

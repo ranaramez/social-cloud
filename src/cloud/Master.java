@@ -6,9 +6,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import Graph.Edge;
 import Graph.StdOut;
 import Graph.User;
-
+import java.io.*;
 public class Master {
 
 	private static ArrayList<DataCenter> dataCenters;
@@ -31,8 +32,49 @@ public class Master {
 	
 	private static void assignFriends(){
 		// assign random friends for each user.
+		  try{
+			  // Open the file that is the first 
+			  // command line parameter
+			  FileInputStream fstream = new FileInputStream("friends.txt");
+			  // Get the object of DataInputStream
+			  DataInputStream in = new DataInputStream(fstream);
+			  BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			  String strLine;
+			  //Read File Line By Line
+			  while ((strLine = br.readLine()) != null)
+			  {
+				  // Print the content on the console
+				  int index1=Integer.parseInt((strLine.split(",")[0]).split("-")[0]);
+				  int dc1=Integer.parseInt((strLine.split(",")[0]).split("-")[1]);
+				  int index2=Integer.parseInt((strLine.split(",")[1]).split("-")[0]);
+				  int dc2=Integer.parseInt((strLine.split(",")[1]).split("-")[1]);
+				  if(dc1==dc2)
+				  {
+					  getDataCenterbyId(dc1).users.addEdge(new Edge(index1, index2, Math.random()*10));
+				  }else
+				  {
+					  getDataCenterbyId(dc1).users.users.get(index1).externalFriends.add(new Friends(index2+"-"+dc2, true));
+					  getDataCenterbyId(dc2).users.users.get(index2).externalFriends.add(new Friends(index1+"-"+dc1, true));
+				  }
+			  }
+			  
+			  //Close the input stream
+			  in.close();
+			  }catch (Exception e){//Catch exception if any
+			    	System.err.println("Error: " + e.getMessage());
+			  }		
 	}
-	
+	public static DataCenter getDataCenterbyId(int id)
+	{
+		DataCenter dc=null;
+		for(int i=0;i<dataCenters.size();i++)
+		{
+			if((dataCenters.get(i).getId())==id)
+				dc= dataCenters.get(i);
+		}
+		return dc;
+		
+	}
 	private static void assignUsers(){
 		BufferedReader in = null;
 		try {
@@ -95,11 +137,11 @@ public class Master {
 
 		
 		// Create Users and assign them to random data centers
-		assignUsers();
+		//assignUsers();
 		
-		printDataCenterUsers(china);
+		//printDataCenterUsers(china);
 		
-//		assignFriends();
+		assignFriends();
 		
 		// call allocate users for each datacenter
 //		checkAllocate();
