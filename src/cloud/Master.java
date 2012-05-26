@@ -50,7 +50,7 @@ public class Master {
 				  int dc2=Integer.parseInt((strLine.split(",")[1]).split("-")[1]);
 				  if(dc1==dc2)
 				  {
-					  getDataCenterbyId(dc1).users.addEdge(new Edge(index1, index2, Math.random()*10));
+					  getDataCenterbyId(dc1).users.addEdge(new Edge(index1, index2));
 				  }else
 				  {
 					  getDataCenterbyId(dc1).users.users.get(index1).externalFriends.add(new Friends(index2+"-"+dc2, true));
@@ -75,6 +75,33 @@ public class Master {
 		return dc;
 		
 	}
+	
+	private static void assignCommunication()
+	{
+		for(DataCenter center: dataCenters)
+		{
+			ArrayList<User> users = center.users.users;
+			int i = 0;
+			while(i < users.size())
+			{
+				int randInd = (int)(Math.random() * (users.size() - 1));
+				if(i != randInd)
+				{
+					Application.assignActivity(users.get(i).profileId, users.get(randInd).profileId, (int)(Math.random() * 10), (int)(Math.random() * 10));
+					i++;
+				}
+			}
+			
+			for(User user: users)
+			{
+				for(Friends friend:user.externalFriends)
+				{
+					Application.assignActivity(user.profileId,friend.profileId, (int)(Math.random() * 10), (int)(Math.random() * 10));
+				}
+			}
+		}
+	}
+	
 	private static void assignUsers(){
 		BufferedReader in = null;
 		try {
@@ -101,6 +128,60 @@ public class Master {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	private static int getDCIndex(int id)
+	{
+		for(int i = 0; i < dataCenters.size(); i++)
+		{
+			if(dataCenters.get(i).dataCenterId == id)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	private static DataCenter assignDataCenter(User user)
+	{
+		DataCenter dc = getDataCenterbyId(Integer.parseInt(user.profileId.split("-")[1]));
+		int v = Integer.parseInt(user.profileId.split("-")[0]);
+		double localWeight = 0;
+		
+		for(Edge edge:dc.users.adj(v))
+		{
+			localWeight += edge.weight();
+		}
+		
+		double[] dcWeights = new double[dataCenters.size()];
+		
+		for(Friends friend: user.externalFriends)
+		{
+			dcWeights[getDCIndex(Integer.parseInt(friend.profileId.split("-")[1]))] += friend.weight;
+		}
+		
+		double max = localWeight;
+		int maxIndex = -1;
+		System.out.println("Weights:");
+		System.out.println(user.profileId.split("-")[1] + ": " + localWeight);
+		for(int i = 0; i < dcWeights.length; i++)
+		{
+			System.out.println(dataCenters.get(i).dataCenterId + ": " + dcWeights[i]);
+			if(dcWeights[i] > max)
+			{
+				max = dcWeights[i];
+				maxIndex = i;
+			}
+		}
+		
+		if(maxIndex == -1)
+		{
+			return getDataCenterbyId(Integer.parseInt(user.profileId.split("-")[1]));
+		}
+		else
+		{
+			return dataCenters.get(maxIndex);
 		}
 	}
 	
@@ -137,12 +218,18 @@ public class Master {
 
 		
 		// Create Users and assign them to random data centers
-		//assignUsers();
+		assignUsers();
 		
 		//printDataCenterUsers(china);
 		
 		assignFriends();
+		StdOut.println(dataCenters.get(0).users);
+		System.out.println();
+		StdOut.println(dataCenters.get(1).users);
 		
+		assignCommunication();
+		DataCenter dc = assignDataCenter(dataCenters.get(0).users.users.get(0));
+		System.out.println(dc.getId());
 		// call allocate users for each datacenter
 //		checkAllocate();
 	}

@@ -20,7 +20,17 @@ public class EdgeWeightedGraph {
        
     }
 
-
+    public User getUserByProfileId(String profileId)
+    {
+    	for(User user:users)
+    	{
+    		if(user.profileId.equals(profileId))
+    		{
+    			return user;
+    		}
+    	}
+    	return null;
+    }
 
    /**
      * Return the number of vertices in this graph.
