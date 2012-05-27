@@ -58,7 +58,10 @@ public class DataCenter {
 	}
 	
 	public void addUser(User user){
-		users.addVertex(user,this.dataCenterId);	
+		if(user.getMemory() < getFreeStorage())
+		{
+			users.addVertex(user,this.dataCenterId);
+		}
 	}
 	public void checkAllocate() {
 	//For each User get it's friends 
@@ -67,5 +70,15 @@ public class DataCenter {
 		
 
 		
+	}
+	
+	public double getFreeStorage()
+	{
+		double freeStorage = storage;
+		for(User usr:users.users)
+		{
+			freeStorage -= usr.getMemory();
+		}
+		return freeStorage;
 	}
 }

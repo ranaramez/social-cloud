@@ -96,7 +96,7 @@ public class Master {
 			{
 				for(Friends friend:user.externalFriends)
 				{
-					Application.assignActivity(user.profileId,friend.profileId, (int)(Math.random() * 10), (int)(Math.random() * 10));
+					Application.assignActivity(user.profileId,friend.profileId, (int)(Math.random() * 100), (int)(Math.random() * 100));
 				}
 			}
 		}
@@ -158,7 +158,8 @@ public class Master {
 		
 		for(Friends friend: user.externalFriends)
 		{
-			dcWeights[getDCIndex(Integer.parseInt(friend.profileId.split("-")[1]))] += friend.weight;
+			int dcIndex = getDCIndex(Integer.parseInt(friend.profileId.split("-")[1]));
+			dcWeights[dcIndex] += friend.weight * ((1.0 / Math.abs(dataCenters.get(dcIndex).geolocation - dc.geolocation)) * 1000);
 		}
 		
 		double max = localWeight;
@@ -167,8 +168,11 @@ public class Master {
 		System.out.println(user.profileId.split("-")[1] + ": " + localWeight);
 		for(int i = 0; i < dcWeights.length; i++)
 		{
-			System.out.println(dataCenters.get(i).dataCenterId + ": " + dcWeights[i]);
-			if(dcWeights[i] > max)
+			if(i != getDCIndex(Integer.parseInt(user.profileId.split("-")[1])))
+			{
+				System.out.println(dataCenters.get(i).dataCenterId + ": " + dcWeights[i] + ", Free Storage: " + dataCenters.get(i).getFreeStorage() + ", User storage: " + user.getMemory());
+			}
+			if(dcWeights[i] > max && dataCenters.get(i).getFreeStorage() > user.getMemory())
 			{
 				max = dcWeights[i];
 				maxIndex = i;

@@ -16,34 +16,39 @@ public class Application {
 		int v1 = Integer.parseInt(profileId1.split("-")[0]);
 		int v2 = Integer.parseInt(profileId2.split("-")[0]);
 		
-		if(dc1 == dc2)
+		boolean writeSuccess1 = Master.getDataCenterbyId(dc1).users.getUserByProfileId(profileId1).updateMemory(noOfWrites * 0.1);
+		boolean writeSuccess2 = Master.getDataCenterbyId(dc2).users.getUserByProfileId(profileId2).updateMemory(noOfWrites * 0.1);
+		if(writeSuccess1 && writeSuccess2)
 		{
-			for(Edge edge: Master.getDataCenterbyId(dc1).users.adj(v1))
+			if(dc1 == dc2)
 			{
-				if(edge.other(v1) == v2)
+				for(Edge edge: Master.getDataCenterbyId(dc1).users.adj(v1))
 				{
-					edge.updateWeight(w);
-					break;
+					if(edge.other(v1) == v2)
+					{
+						edge.updateWeight(w);
+						break;
+					}
 				}
 			}
-		}
-		else
-		{
-			for(Friends friend: Master.getDataCenterbyId(dc1).users.getUserByProfileId(profileId1).externalFriends)
+			else
 			{
-				if(friend.profileId.equals(profileId2))
+				for(Friends friend: Master.getDataCenterbyId(dc1).users.getUserByProfileId(profileId1).externalFriends)
 				{
-					friend.updateWeight(w);
-					break;
+					if(friend.profileId.equals(profileId2))
+					{
+						friend.updateWeight(w);
+						break;
+					}
 				}
-			}
 			
-			for(Friends friend:Master.getDataCenterbyId(dc2).users.getUserByProfileId(profileId2).externalFriends)
-			{
-				if(friend.profileId.equals(profileId1))
+				for(Friends friend:Master.getDataCenterbyId(dc2).users.getUserByProfileId(profileId2).externalFriends)
 				{
-					friend.updateWeight(w);
-					break;
+					if(friend.profileId.equals(profileId1))
+					{
+						friend.updateWeight(w);
+						break;
+					}
 				}
 			}
 		}

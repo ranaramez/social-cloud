@@ -3,6 +3,7 @@ package Graph;
 import java.util.ArrayList;
 
 import cloud.Friends;
+import cloud.Master;
 
 public class User {
 
@@ -25,5 +26,21 @@ public class User {
 		this.usedMemory = 0.1;
 		this.origin=origin;
 		this.externalFriends= new ArrayList<Friends>();
+	}
+	
+	public boolean updateMemory(double dataSize)
+	{
+		int dc = Integer.parseInt(profileId.split("-")[1]);
+		if(Master.getDataCenterbyId(dc).getFreeStorage() > dataSize)
+		{
+			usedMemory += dataSize;
+			return true;
+		}
+		return false;
+	}
+	
+	public double getMemory()
+	{
+		return usedMemory;
 	}
 }
