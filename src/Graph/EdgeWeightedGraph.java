@@ -2,6 +2,8 @@ package Graph;
 
 import java.util.ArrayList;
 
+import cloud.Friends;
+
 public class EdgeWeightedGraph {
 	
     private int V;
@@ -70,8 +72,37 @@ public class EdgeWeightedGraph {
     	adj.add(new Bag<Edge>());
     	
     }
-
-
+    /**
+     * Delete vertex from this graph.
+     */
+     public void deleteVertex(int v){
+    	 ArrayList<Bag<Edge>> newAdj = this.adj;
+    	 ArrayList<User> newUsers = this.users;
+    	 
+    	 this.V = 0;
+         this.E = 0;
+    	 users= new ArrayList<User>();
+         adj = new ArrayList<Bag<Edge>>();
+    	 
+    	 for(User user:newUsers)
+    	 {
+    		 int userV = Integer.parseInt(user.profileId.split("-")[0]);
+    		 if(userV != v)
+    		 {
+    			 addVertex(user, Integer.parseInt(user.profileId.split("-")[1]));
+    		 }
+    	 }
+    	 for(User user:newUsers)
+    	 {
+    		 int userV = Integer.parseInt(user.profileId.split("-")[0]);
+    		 if(userV != v)
+			 {
+    			 for (Edge e : newAdj.get(userV)) {
+	    	  		addEdge(e);
+    		 	 }
+			 }
+    	 }
+     }
    /**
      * Return the edges incident to vertex v as an Iterable.
      * To iterate over the edges incident to vertex v, use foreach notation:

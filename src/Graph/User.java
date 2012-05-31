@@ -2,6 +2,7 @@ package Graph;
 
 import java.util.ArrayList;
 
+import cloud.DataCenter;
 import cloud.Friends;
 import cloud.Master;
 
@@ -42,5 +43,19 @@ public class User {
 	public double getMemory()
 	{
 		return usedMemory;
+	}
+	
+	public double getPerformance()
+	{
+		DataCenter dc = Master.getDataCenterbyId(Integer.parseInt(profileId.split("-")[1]));
+		int userId=Integer.parseInt(profileId.split("-")[0]);
+		double localFriends =0;
+		for(Edge e:dc.users.adj(userId)){
+			localFriends++;
+		}
+
+		int totalNumberOfFriends=dc.getFriends(this.profileId).size();
+
+		return localFriends/totalNumberOfFriends;
 	}
 }

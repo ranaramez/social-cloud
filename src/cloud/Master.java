@@ -96,7 +96,7 @@ public class Master {
 			{
 				for(Friends friend:user.externalFriends)
 				{
-					Application.assignActivity(user.profileId,friend.profileId, (int)(Math.random() * 100), (int)(Math.random() * 100));
+					Application.assignActivity(user.profileId,friend.profileId, (int)(Math.random() * 1000), (int)(Math.random() * 1000));
 				}
 			}
 		}
@@ -143,6 +143,41 @@ public class Master {
 		return -1;
 	}
 	
+	private static void transferUser(User user, DataCenter dc)
+	{
+		DataCenter oldDc = getDataCenterbyId(Integer.parseInt(user.profileId.split("-")[1]));
+		int v = Integer.parseInt(user.profileId.split("-")[0]);
+		for(Edge e: oldDc.users.adj(v))
+		{
+			//for(Friends friend: user.externalFriends)
+			//{
+				//if(friend.profileId == e.other(v) + "-" + oldDc.dataCenterId)
+				//{
+					user.externalFriends.add(new Friends(e.other(v) + "-" + oldDc.dataCenterId,true));
+				//}
+			//}
+		}
+		
+		oldDc.users.deleteVertex(Integer.parseInt(user.profileId.split("-")[0]));
+		user.profileId = v + "-" + dc.dataCenterId;
+		dc.addUser(user);
+		ArrayList<Friends> friends = new ArrayList<Friends>();
+		
+		for(Friends friend: user.externalFriends)
+		{
+			if(Integer.parseInt(friend.profileId.split("-")[1]) == dc.dataCenterId)
+			{
+				dc.users.addEdge(new Edge(v,Integer.parseInt(friend.profileId.split("-")[0])));
+			}
+			else
+			{
+				friends.add(friend);
+			}
+		}
+		user.externalFriends = friends;
+		System.out.println(v + "-" + oldDc.dataCenterId + " is transferred to " + dc.dataCenterId);
+	}
+	
 	private static DataCenter assignDataCenter(User user)
 	{
 		DataCenter dc = getDataCenterbyId(Integer.parseInt(user.profileId.split("-")[1]));
@@ -185,6 +220,7 @@ public class Master {
 		}
 		else
 		{
+			transferUser(user,dataCenters.get(maxIndex));
 			return dataCenters.get(maxIndex);
 		}
 	}
@@ -227,15 +263,15 @@ public class Master {
 		//printDataCenterUsers(china);
 		
 		assignFriends();
-		StdOut.println(dataCenters.get(0).users);
+		//StdOut.println(dataCenters.get(0).users);
 		System.out.println();
-		StdOut.println(dataCenters.get(1).users);
+		StdOut.println(dataCenters.get(0).users);
 		
-		assignCommunication();
+		assignCommunication();System.out.println("Performance ratio:"+dataCenters.get(0).users.users.get(0).getPerformance());
+
 		DataCenter dc = assignDataCenter(dataCenters.get(0).users.users.get(0));
 		System.out.println(dc.getId());
-		// call allocate users for each datacenter
-//		checkAllocate();
+		System.out.println("Performance ratio:"+dataCenters.get(0).users.users.get(0).getPerformance());
 	}
 	
 }

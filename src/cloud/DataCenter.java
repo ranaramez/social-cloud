@@ -9,7 +9,7 @@ import Graph.User;
 
 public class DataCenter {
 
-	EdgeWeightedGraph users;
+	public EdgeWeightedGraph users;
 	int dataCenterId;
 	int storage;
 	ArrayList<Server> servers;
@@ -47,6 +47,8 @@ public class DataCenter {
 	      }
 	    // External Friends
 	      friends.addAll(user.externalFriends);
+	      
+	      
 	      
 	      return friends;
 		
